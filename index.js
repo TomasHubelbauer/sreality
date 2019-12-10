@@ -1,13 +1,15 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs-extra');
 
+process.on('unhandledRejection', error => { throw error; });
+
 void async function () {
   if (!process.argv[2]) {
     console.log('Pass the URL of the search results page as an argument, please.');
     process.exit(1);
   }
 
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch();
   try {
     const [page] = await browser.pages();
 
