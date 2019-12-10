@@ -31,6 +31,7 @@ void async function () {
       const description = await page.$eval('div.description', div => div.textContent);
 
       const photos = [];
+      await page.waitForSelector('button.thumbnails');
       let photoCount = await page.$eval('button.thumbnails', button => Number(button.textContent.match(/\d+/)[0]));
       if (await page.$('button.btn-panorama-open__btn')) {
         // Discard the last "photo" because it's really a panorama
