@@ -62,7 +62,7 @@ void async function () {
 
       await fs.writeJson(
         id + '.json',
-        { title, location, price, description, photoCount, photos },
+        { url: href, title, location, price, description, photoCount, photos },
         { spaces: 2 }
       );
 
