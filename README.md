@@ -27,8 +27,3 @@ to add this.
 ## To-Do
 
 ### Implement paging the search results
-
-### Ignore virtual tour items in the photo reel
-
-They are similar to Panorama, except when they are available, they always seem
-to come first.

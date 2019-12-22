@@ -27,20 +27,36 @@ void async function () {
       console.log(`Going to the post link href: ${href}`);
       await page.goto(href);
 
+      // Wait for each element first to make sure it has been rendered using JS
       const [id] = href.split('/').slice(-1);
+      await page.waitForSelector('div.property-title span.name');
       const title = await page.$eval('div.property-title span.name', span => span.textContent);
+      await page.waitForSelector('span.location-text');
       const location = await page.$eval('span.location-text', span => span.textContent);
+      await page.waitForSelector('span.norm-price');
       const price = await page.$eval('span.norm-price', span => span.textContent);
+      await page.waitForSelector('div.description');
       const description = await page.$eval('div.description', div => div.textContent);
-
-      const photos = [];
       await page.waitForSelector('button.thumbnails');
       let photoCount = await page.$eval('button.thumbnails', button => Number(button.textContent.match(/\d+/)[0]));
+
       if (await page.$('button.btn-panorama-open__btn')) {
         // Discard the last "photo" because it's really a panorama
         photoCount--;
       }
 
+      if (await page.$('img.img-virtual-tour-start-txt')) {
+        // Discard the first "photo" because it's really a virtual tour
+        photoCount--;
+
+        // Hover over the photo to make the action buttons appear
+        await page.hover('div.image-cover');
+
+        // Click the button which goes to the first real photo
+        await page.click('button.detail-btn.next');
+      }
+
+      const photos = [];
       console.log(`Scraping ${photoCount} post photos`);
       for (let number = 1; number <= photoCount; number++) {
         const selector = `img[img-src]:not([src="${photos[number - 1 /* number to index */ - 1 /* index of the already scraped photo */]}"])`;
