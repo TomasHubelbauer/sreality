@@ -4,7 +4,10 @@ Scraping SReality with Puppeteer.
 
 ## Usage
 
-`npm start ${url}`
+```
+npm install
+node . ${url}
+```
 
 `${url}` is the URL of the search results page. E.g. all houses in Prague:
 
@@ -27,3 +30,10 @@ to add this.
 ## To-Do
 
 ### Implement paging the search results
+
+### Run this on schedule in GitHub Actions for interesting searches
+
+Could be automated to make issues with the photos and metadata and delete the
+issues once the post is no longer found in the next run.
+
+### Download the post photos to the file system, not just the URLs

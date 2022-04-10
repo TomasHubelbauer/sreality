@@ -1,10 +1,6 @@
 {
-  "name": "sreality",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "type": "module",
   "dependencies": {
-    "fs-extra": "^8.1.0",
-    "puppeteer": "^2.0.0"
+    "puppeteer": "^13.5.2"
   }
 }
